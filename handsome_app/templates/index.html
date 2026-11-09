@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống So Sánh Độ Điển Trai Chuẩn Thẩm Mỹ Thế Giới | AI Handsome Comparator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="bg-glow-orb orb-1"></div>
+    <div class="bg-glow-orb orb-2"></div>
+    <div class="bg-grid-overlay"></div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="header-badge">
+                <i class="fa-solid fa-atom"></i> AI Facial Aesthetics Engine • 478 Landmark 3D Mesh
+            </div>
+            <h1 class="main-title">
+                Hệ Thống So Sánh <span class="gradient-text">Độ Điển Trai</span> Nam Giới
+            </h1>
+            <p class="subtitle">
+                Đánh giá và so sánh chuẩn mực nhan sắc dựa trên <strong>Bảng Tiêu Chí Thẩm Mỹ Toàn Cầu</strong>: 
+                Tỷ lệ vàng 1:1.618, Góc hàm Gonial, Ánh nhìn Hunter Eyes (Canthal Tilt), Quy tắc 3 tầng mặt & 5 phần chiều ngang.
+            </p>
+            <div class="sample-actions">
+                <button type="button" id="btn-quick-sample" class="btn-sample">
+                    <i class="fa-solid fa-bolt"></i> Thử nhanh với 2 ảnh mẫu
+                </button>
+            </div>
+        </header>
+
+        <!-- CRITERIA PILLS -->
+        <div class="criteria-bar">
+            <div class="crit-pill"><i class="fa-solid fa-scale-balanced"></i> Độ Đối Xứng</div>
+            <div class="crit-pill"><i class="fa-solid fa-shield-halved"></i> Góc Hàm 120°</div>
+            <div class="crit-pill"><i class="fa-solid fa-eye"></i> Hunter Eyes Canthal Tilt</div>
+            <div class="crit-pill"><i class="fa-solid fa-lines-leaning"></i> Tỷ Lệ 3 Tầng Mặt</div>
+            <div class="crit-pill"><i class="fa-solid fa-arrows-left-right"></i> Quy Tắc 5 Phần</div>
+            <div class="crit-pill"><i class="fa-solid fa-heart"></i> Mũi & Môi Hài Hòa</div>
+            <div class="crit-pill"><i class="fa-solid fa-crown"></i> Độ Nhô Cằm Nam Tính</div>
+        </div>
+
+        <!-- UPLOAD SECTION -->
+        <section class="upload-section">
+            <form id="compare-form">
+                <div class="cards-grid">
+                    <!-- CANDIDATE 1 -->
+                    <div class="upload-card" id="card-1">
+                        <div class="card-header">
+                            <span class="card-badge candidate-1-badge">
+                                <i class="fa-solid fa-user"></i> ỨNG VIÊN 1 (ẢNH 1)
+                            </span>
+                            <button type="button" class="btn-reset" id="reset-1" title="Xóa ảnh"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="drop-zone" id="drop-1">
+                            <input type="file" id="input-1" accept="image/*" class="file-input">
+                            <div class="drop-prompt" id="prompt-1">
+                                <div class="upload-icon-circle">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                </div>
+                                <h4>Kéo thả hoặc nhấn để tải ảnh 1</h4>
+                                <p>Hỗ trợ JPG, PNG, WEBP (chụp rõ mặt, góc chính diện)</p>
+                            </div>
+                            <div class="preview-container" id="preview-box-1" style="display: none;">
+                                <img id="preview-img-1" src="" alt="Ảnh 1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VS BADGE -->
+                    <div class="vs-divider">
+                        <div class="vs-circle">VS</div>
+                    </div>
+
+                    <!-- CANDIDATE 2 -->
+                    <div class="upload-card" id="card-2">
+                        <div class="card-header">
+                            <span class="card-badge candidate-2-badge">
+                                <i class="fa-solid fa-user"></i> ỨNG VIÊN 2 (ẢNH 2)
+                            </span>
+                            <button type="button" class="btn-reset" id="reset-2" title="Xóa ảnh"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="drop-zone" id="drop-2">
+                            <input type="file" id="input-2" accept="image/*" class="file-input">
+                            <div class="drop-prompt" id="prompt-2">
+                                <div class="upload-icon-circle">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                </div>
+                                <h4>Kéo thả hoặc nhấn để tải ảnh 2</h4>
+                                <p>Hỗ trợ JPG, PNG, WEBP (chụp rõ mặt, góc chính diện)</p>
+                            </div>
+                            <div class="preview-container" id="preview-box-2" style="display: none;">
+                                <img id="preview-img-2" src="" alt="Ảnh 2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBMIT BUTTON -->
+                <div class="submit-container">
+                    <button type="submit" id="btn-compare" class="btn-primary-action">
+                        <span class="btn-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Phân Tích & So Sánh Ngay</span>
+                        <span class="btn-loading" style="display: none;">
+                            <i class="fa-solid fa-spinner fa-spin"></i> Đang quét 478 Landmark & Phân tích...
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- ERROR ALERT -->
+        <div id="error-alert" class="alert-box alert-error" style="display: none;">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="error-message">Có lỗi xảy ra.</span>
+        </div>
+
+        <!-- RESULTS SECTION -->
+        <section id="results-section" class="results-section" style="display: none;">
+            
+            <!-- WINNER HERO BANNER -->
+            <div class="winner-hero" id="winner-banner">
+                <div class="trophy-glow">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="winner-title" id="winner-title-text">Ảnh 1 Điển Trai Hơn Tổng Thể</h2>
+                <p class="winner-sub" id="winner-sub-text">Dẫn trước ở 5/7 tiêu chí chuẩn thẩm mỹ toàn cầu</p>
+
+                <!-- DIRECT HEAD-TO-HEAD SCOREBOARD -->
+                <div class="scoreboard-grid">
+                    <div class="score-card candidate-1-scorecard" id="scorecard-1">
+                        <div class="score-avatar-wrap">
+                            <img id="score-thumb-1" src="" alt="Ứng viên 1">
+                            <div class="winner-pill" id="winner-pill-1" style="display: none;">👑 THẮNG CUỘC</div>
+                        </div>
+                        <div class="score-info">
+                            <span class="score-label">ỨNG VIÊN 1</span>
+                            <div class="score-number-row">
+                                <span class="score-big" id="score-num-1">0</span>
+                                <span class="score-max">/100</span>
+                            </div>
+                            <div class="score-sub-row">
+                                <span>Thang 10: <strong id="score-10-num-1">0.0</strong>/10</span>
+                            </div>
+                            <div class="tier-tag" id="tier-tag-1">💎 Chuẩn Siêu Mẫu</div>
+                        </div>
+                    </div>
+
+                    <div class="scoreboard-vs">
+                        <div class="vs-glow-text">VS</div>
+                        <div class="diff-badge" id="diff-badge-text">Cách biệt: +0.0đ</div>
+                    </div>
+
+                    <div class="score-card candidate-2-scorecard" id="scorecard-2">
+                        <div class="score-avatar-wrap">
+                            <img id="score-thumb-2" src="" alt="Ứng viên 2">
+                            <div class="winner-pill" id="winner-pill-2" style="display: none;">👑 THẮNG CUỘC</div>
+                        </div>
+                        <div class="score-info">
+                            <span class="score-label">ỨNG VIÊN 2</span>
+                            <div class="score-number-row">
+                                <span class="score-big" id="score-num-2">0</span>
+                                <span class="score-max">/100</span>
+                            </div>
+                            <div class="score-sub-row">
+                                <span>Thang 10: <strong id="score-10-num-2">0.0</strong>/10</span>
+                            </div>
+                            <div class="tier-tag" id="tier-tag-2">✨ Điển Trai Nổi Bật</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ANNOTATED WIREFRAME & LANDMARKS SECTION -->
+            <div class="card-section">
+                <div class="section-heading">
+                    <div>
+                        <h3><i class="fa-solid fa-microchip"></i> Lưới Trực Quan Hóa Tỷ Lệ Vàng & Landmarks</h3>
+                        <p class="section-desc">Hệ thống AI hiển thị trục đối xứng dọc, đường phân tầng mặt (Thirds), viền góc hàm và vector Canthal Tilt.</p>
+                    </div>
+                    <div class="toggle-mode-wrap">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-landmarks" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span class="toggle-label">Hiển thị lưới AI & Tỷ Lệ Vàng</span>
+                    </div>
+                </div>
+
+                <div class="annotated-grid">
+                    <div class="annotated-card">
+                        <div class="annotated-header">
+                            <span><i class="fa-solid fa-camera"></i> Phân tích AI Ảnh 1</span>
+                        </div>
+                        <div class="annotated-img-wrap">
+                            <img id="annotated-view-1" src="" alt="Lưới Landmark 1">
+                        </div>
+                    </div>
+                    <div class="annotated-card">
+                        <div class="annotated-header">
+                            <span><i class="fa-solid fa-camera"></i> Phân tích AI Ảnh 2</span>
+                        </div>
+                        <div class="annotated-img-wrap">
+                            <img id="annotated-view-2" src="" alt="Lưới Landmark 2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RADAR CHART COMPARISON -->
+            <div class="card-section">
+                <div class="section-heading">
+                    <div>
+                        <h3><i class="fa-solid fa-chart-radar"></i> Biểu Đồ Mạng Nhện So Sánh 7 Tiêu Chí Thẩm Mỹ</h3>
+                        <p class="section-desc">Độ phủ nhan sắc giữa 2 ứng viên trên thang đo 100 điểm.</p>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="radar-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- DETAILED BREAKDOWN: "ĐẸP HƠN CHỖ NÀO?" -->
+            <div class="card-section">
+                <div class="section-heading">
+                    <div>
+                        <h3><i class="fa-solid fa-list-check"></i> Chi Tiết: Ai Đẹp Hơn Chỗ Nào?</h3>
+                        <p class="section-desc">Phân tích cặn kẽ từng chỉ số cấu trúc xương, ngũ quan và tỷ lệ so với chuẩn mực thế giới.</p>
+                    </div>
+                </div>
+
+                <div class="criteria-breakdown-list" id="breakdown-list">
+                    <!-- Dynamic criteria cards inserted here -->
+                </div>
+            </div>
+
+            <!-- EXECUTIVE SYNTHESIS SUMMARY -->
+            <div class="card-section summary-card">
+                <div class="section-heading">
+                    <div>
+                        <h3><i class="fa-solid fa-feather-pointed"></i> Tổng Kết & Đánh Giá Toàn Diện</h3>
+                    </div>
+                </div>
+                <div class="summary-content" id="summary-text">
+                    <!-- Formatted summary inserted here -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <p>Hệ Thống Phân Tích & So Sánh Khuôn Mặt Dựa Trên Khoa Học Nhân Trắc Học (Facial Anthropometry) & Tỷ Lệ Vàng Quốc Tế.</p>
+            <p class="footer-sub">Phát triển bằng FastAPI & MediaPipe Machine Learning • Dành cho mục đích tham khảo thẩm mỹ & giải trí lành mạnh.</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
